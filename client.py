@@ -1,7 +1,7 @@
 import socket
 from cryptography.fernet import Fernet
 
-# Charger la clé AES
+
 with open("secret.key", "rb") as key_file:
     key = key_file.read()
 cipher_suite = Fernet(key)
@@ -28,7 +28,7 @@ if "Accès refusé" in auth_response:
 
 while True:
     message = input("Message : ")
-    encrypted_message = cipher_suite.encrypt(message.encode())  # Chiffrement AES
+    encrypted_message = cipher_suite.encrypt(message.encode()) 
     client.send(encrypted_message)
 
     response = client.recv(1024)

@@ -5,16 +5,15 @@ import hashlib
 from cryptography.fernet import Fernet
 from flask import Flask, render_template_string
 
-# Charger la clé AES
 with open("secret.key", "rb") as key_file:
     key = key_file.read()
 cipher_suite = Fernet(key)
 
-# Stockage des logs et des clients connectés
+
 logs = []
 clients = {}
 
-# Interface Web pour afficher les logs en direct
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -31,7 +30,7 @@ def index():
 def start_web():
     app.run(host="0.0.0.0", port=5000, debug=False)
 
-# Vérification des identifiants avec SHA-256
+
 def check_credentials(username, password):
     conn = sqlite3.connect("users.db")
     cursor = conn.cursor()
@@ -41,13 +40,12 @@ def check_credentials(username, password):
     conn.close()
     return user[0] if user else None
 
-# Gestion d'un client
+
 def handle_client(client_socket, address):
     global logs
     print(f"[+] Nouveau client : {address}")
     logs.append(f"Connexion de {address}")
 
-    # Authentification
     client_socket.send("Login: ".encode())
     username = client_socket.recv(1024).decode().strip()
 
@@ -76,7 +74,7 @@ def handle_client(client_socket, address):
             print(f"[{username}] {message}")
             logs.append(f"{username}: {message}")
 
-            # Commandes Admin
+           
             if role == "admin":
                 if message.startswith("/kick "):
                     user_to_kick = message.split(" ")[1]
@@ -117,6 +115,6 @@ def start_server():
         thread = threading.Thread(target=handle_client, args=(client, address))
         thread.start()
 
-# Lancer le serveur et l'interface web en parallèle
+
 threading.Thread(target=start_web, daemon=True).start()
 start_server()

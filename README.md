@@ -1,4 +1,3 @@
-Voici un **README.md complet** que tu peux **copier-coller directement** dans ton projet. Ce fichier inclut **toutes les instructions nécessaires** pour installer, utiliser et gérer ton serveur TCP sécurisé.  
 
 ---
 
@@ -129,9 +128,7 @@ pip uninstall -r requirements.txt -y
 
 ---
 
-🔥 **Le projet est maintenant prêt à être utilisé !** 🚀  
-💡 **Tu veux encore une amélioration ?** (Ajout d’une interface graphique, API Web ?)
-```
+
 
 ---
 
